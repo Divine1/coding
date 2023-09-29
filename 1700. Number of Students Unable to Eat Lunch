@@ -1,0 +1,30 @@
+```
+import java.util.Optional;
+class Solution {
+    public int countStudents(int[] students, int[] sandwiches) {
+        
+        Map<Integer,Integer> map = new HashMap<>();
+        map.put(0,0);
+        map.put(1,0);
+        for(int i=0;i<students.length;i++){
+            if(map.containsKey(students[i])){
+                map.put(students[i],map.get(students[i])+1);
+            }
+            else{
+                map.put(students[i],1);
+            }
+        }
+        for(int i=0;i<sandwiches.length;i++){
+            if(map.get(sandwiches[i]) == 0){
+                break;
+            }
+            else{
+                map.put(sandwiches[i],map.get(sandwiches[i])-1);
+            }
+        }
+        Optional<Integer> ret = map.values().stream().reduce((x,y)->{return x+y;});
+        return ret.get().intValue();
+    }
+}
+
+```
